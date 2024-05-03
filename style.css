@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+
+html {
+  height: 100dvh;
+  body,
+  #app {
+    height: inherit;
+  }
+}
+
+.rad {
+  border-radius: 0.625rem;
+}
+
+.debug {
+  border: 1px solid red;
+}
+
+.fx {
+  display: flex;
+
+  &.flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.flex-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+.target-box,
+.drop-targets {
+  border: 2px solid #222;
+  border-radius: 0.625rem;
+}
+
+.target-box {
+  width: 150px;
+  aspect-ratio: 1;
+}
+
+.drop-box {
+  height: 70%;
+}
+
+.drop-targets {
+  width: 100px;
+  aspect-ratio: 1;
+}
+
+@media screen and (min-width: 900.98px) {
+  .target-box {
+    width: 200px;
+  }
+
+  .drop-targets {
+    width: 150px;
+  }
+}
