@@ -6,26 +6,54 @@ eruda.init();
 
 const log = console.log;
 
+const targetBox = document.querySelector(".target-box");
 const dragTarget = document.querySelector("[draggable=true]");
 const dropTargets = document.querySelectorAll(".drop-targets");
 
-const feedBackImage = new Image();
+dropTargets[Math.floor(Math.random() * (dropTargets.length - 1))].classList.add(
+  "win",
+);
+// const feedBackImage = new Image();
 const dataType = "text/plain";
 
 const dragTargetEvents = new On(dragTarget, {
   dragstart(e) {
-    const dT = e.dataTransfer;
-    dT.setData(dataType, "this may be dragged");
-    dT.effectAllowed = "copyMove";
-    log(e);
+    e.dataTransfer.setData(dataType, this.id); // set the data as an ID
+    e.dataTransfer.effectAllowed = "copyMove";
+    log("dragStart");
   },
 });
 
 const dropTargetsEvent = new On(dropTargets, {
   dragover(e) {
-    log(e);
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+
+    log("dragOver");
+    this.classList.add("over");
+    targetBox.classList.add("over");
   },
-  dragenter() {},
-  dragleave() {},
+  dragenter(e) {
+    e.preventDefault();
+    log("dragEnter");
+  },
+  drop(e) {
+    e.preventDefault();
+    log("dropped");
+
+    const data = e.dataTransfer.getData("text/plain"); // reference the ID
+    this.appendChild(document.getElementById(data)); // copy or move the element
+
+    this.classList.contains("win")
+      ? targetBox.classList.add("win")
+      : targetBox.classList.add("lose");
+  },
+  dragleave() {
+    this.classList.remove("over");
+    targetBox.classList.remove("over");
+    log("dragLeave");
+  },
+  dragend() {
+    log("dragEnd");
+  },
 });
-// const
